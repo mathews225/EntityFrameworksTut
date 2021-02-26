@@ -36,21 +36,41 @@ namespace EntityFrameworksTut {
 			#endregion
 
 			#region Create
-			var sGreg = new Student {
-				Id = 0,
-				Firstname = "Greg",
-				Lastname = "Doud",
-				StateCode = "OH",
-				Gpa = 2.1m,
-				Sat = 805,
-				MajorId = 1
-			};
+			//var sGreg = new Student {
+			//	Id = 0,
+			//	Firstname = "Greg",
+			//	Lastname = "Doud",
+			//	StateCode = "OH",
+			//	Gpa = 2.1m,
+			//	Sat = 805,
+			//	MajorId = 1
+			//};
 
-			var createStudent = sctrl.Create(sGreg);
-			Console.WriteLine($"{createStudent.Id},  {createStudent.Firstname},  {createStudent.Lastname}");
+			//var sGregNew = sctrl.Create(sGreg);
+			//Console.WriteLine($"{sGregNew.Id},  {sGregNew.Firstname},  {sGregNew.Lastname}");
+
+			//Console.WriteLine("\n");
+			#endregion
+
+			#region Update
+			var sGN = sctrl.GetByPK(66);
+
+			// Set Firstname to "Gregory"
+			sGN.Firstname = "Gregory";
+			sctrl.Update(sGN);
+
+			Console.WriteLine($"{sGN.Id},  {sGN.Firstname},  {sGN.Lastname}");
 
 			Console.WriteLine("\n");
 			#endregion
+
+			#region Delete
+			var sGNd = sctrl.Delete(67);
+
+			Console.WriteLine("\n");
+			#endregion
+
+
 
 
 		}

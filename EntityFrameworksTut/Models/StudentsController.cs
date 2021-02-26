@@ -35,9 +35,38 @@ namespace EntityFrameworksTut.Models {
 			return student;
 		}
 
+		public void Update(Student student) {
+			if (student == null) {
+				throw new Exception("ERROR: student cannot be null!");
+			}
+			if (student.Id <= 0) {
+				throw new Exception("ERROR: student.Id must be 0!");
+			}
+			_context.Entry(student).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+			var rowAffected = _context.SaveChanges();
+			if (rowAffected != 1) {
+				throw new Exception("ERROR: change failed!");
+			}
+			return;
+		}
+
+		public Student Delete(int id) {
+			var student =_context.Students.Find(id);
+			if (student==null) {
+				return null;
+			}
+			_context.Students.Remove(student);
+			var rowsAffected = _context.SaveChanges();
+			if (rowsAffected != 1) {
+				throw new Exception("ERROR: Remove Failed");
+			}
+			Console.WriteLine($"STUDENT DELETED!");
+			//Console.WriteLine("0,-6}{1,-15}{2,-15}",student.Id,student.Lastname,student.Firstname); Doesn't work 
+			return student;
+		}
 
 
-		// 2	constructor 
+		// 2	constructor
 		public StudentsController() {
 			_context = new eddbContext();
 		}
