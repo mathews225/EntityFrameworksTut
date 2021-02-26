@@ -15,16 +15,47 @@ namespace EntityFrameworksTut {
 
 
 			var sctrl = new StudentsController();
+
+
+			#region GetAll
 			var students = sctrl.GetAll();
 			foreach (var s in students) {
 				Console.WriteLine("{0,-12}{0,-12}",s.Lastname,s.Firstname );
 			}
+			#endregion
+
+			#region GetByPK
+			var id = 1;
+			var student = sctrl.GetByPK(id);
+			if (student == null) {
+				Console.WriteLine($"Student w/ Id {id} Not Found");
+			} else {
+				Console.WriteLine("{0,-12}{0,-12}", student.Lastname, student.Firstname);
+			}
+			Console.WriteLine("\n");
+			#endregion
+
+			#region Create
+			var sGreg = new Student {
+				Id = 0,
+				Firstname = "Greg",
+				Lastname = "Doud",
+				StateCode = "OH",
+				Gpa = 2.1m,
+				Sat = 805,
+				MajorId = 1
+			};
+
+			var createStudent = sctrl.Create(sGreg);
+			Console.WriteLine($"{createStudent.Id},  {createStudent.Firstname},  {createStudent.Lastname}");
+
+			Console.WriteLine("\n");
+			#endregion
 
 
-		
 		}
-		
-		
+
+
 		#region db connection
 		static void Run1() {
 			var _context = new eddbContext();
