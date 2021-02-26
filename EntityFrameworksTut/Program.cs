@@ -13,8 +13,20 @@ namespace EntityFrameworksTut {
 	class Program {
 		static void Main(string[] args) {
 
-			#region db connection
 
+			var sctrl = new StudentsController();
+			var students = sctrl.GetAll();
+			foreach (var s in students) {
+				Console.WriteLine("{0,-12}{0,-12}",s.Lastname,s.Firstname );
+			}
+
+
+		
+		}
+		
+		
+		#region db connection
+		static void Run1() {
 			var _context = new eddbContext();
 
 			#region Example 1
@@ -43,6 +55,7 @@ namespace EntityFrameworksTut {
 
 			#region LINQ
 
+			
 			var major = from m in _context.Majors
 									where m.MinSat < 1000
 									orderby m.Description
@@ -72,6 +85,8 @@ namespace EntityFrameworksTut {
 			}
 
 			#endregion
+
+
 
 			#endregion
 
