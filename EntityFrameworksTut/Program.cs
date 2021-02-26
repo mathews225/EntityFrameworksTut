@@ -16,9 +16,8 @@ namespace EntityFrameworksTut {
 			#region db connection
 
 			var _context = new eddbContext();
-			var students = _context.Students.ToList();
 
-			foreach (var s  in students) {
+			foreach (var s in _context.Students.ToList()) {
 				Console.WriteLine($"{s.Firstname} {s.Lastname}");
 			}
 
