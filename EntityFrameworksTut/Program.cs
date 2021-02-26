@@ -55,24 +55,21 @@ namespace EntityFrameworksTut {
 
 			// Join student & Major print name and major
 
-			Console.WriteLine($"\nName \t Description");
-
 			var allStudents = from s in _context.Students
 												join m in _context.Majors
 												on s.MajorId equals m.Id
 												select new {
-													name = s.Lastname + ", " + s.Firstname,
+													lname = s.Lastname,
+													fname = s.Firstname,
 													major = s.MajorId == null ? "Undeclared" : m.Description
 												};
 
+			Console.WriteLine("\n");
+			Console.WriteLine("{0,-15}{1,-15}{2,-10}", "LAST", "FIRST", "DESCRIPTION");
+
 			foreach (var s in allStudents) {
-				Console.WriteLine($"{s.name} | {s.major}");
+				Console.WriteLine("{0,-15}{1,-15}{2,-10}",$"{s.lname},",s.fname,s.major);
 			}
-
-			// allStudents.foreach(s => Console.WriteLine("{0,20}{1,10}",$"{studentsmajor.);
-
-			// 
-
 
 			#endregion
 
