@@ -65,6 +65,20 @@ namespace EntityFrameworksTut.Models {
 			return student;
 		}
 
+		/* Read all the students with SAT values between 1000 and 1200 inclusive
+		 * order the results by SAT score descending */
+
+		public IEnumerable<Student> GetBySatRange(int lowSat, int highSat) {
+			return _context.Students.Where(s => s.Sat >= lowSat && s.Sat <= highSat).OrderByDescending(s => s.Sat).ToList();
+		}
+
+		public IEnumerable<Student> GetBySatRangeQ(int lowSat, int highSat) {
+			return (from s in _context.Students
+							where s.Sat >= 1000 && s.Sat <= 1200
+							orderby s.Sat descending
+							select s).ToList();
+		}
+
 
 		// 2	constructor
 		public StudentsController() {
