@@ -74,7 +74,7 @@ namespace EntityFrameworksTut.Models {
 
 		public IEnumerable<Student> GetBySatRangeQ(int lowSat, int highSat) {
 			return (from s in _context.Students
-							where s.Sat >= 1000 && s.Sat <= 1200
+							where s.Sat >= lowSat && s.Sat <= lowSat
 							orderby s.Sat descending
 							select s).ToList();
 		}
