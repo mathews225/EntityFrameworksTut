@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using EntityFrameworksTut.Models;
 
 /* tools > Nuget Package Manager Console
  * PM> install-package Microsoft.EntityFrameworksCore.Tools
@@ -12,8 +13,18 @@ namespace EntityFrameworksTut {
 	class Program {
 		static void Main(string[] args) {
 
+			#region db connection
+
+			var _context = new eddbContext();
+			var students = _context.Students.ToList();
+
+			foreach (var s  in students) {
+				Console.WriteLine($"{s.Firstname} {s.Lastname}");
+			}
 
 
-}
-}
+			#endregion
+
+		}
+	}
 }
