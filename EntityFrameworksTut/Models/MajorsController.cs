@@ -36,7 +36,7 @@ namespace EntityFrameworksTut.Models {
 				throw new Exception("ERROR: Major cannot be null");
 			}
 			if (major.Id <=0 ) {
-				throw new Exception("ERROR major ID must be 0");
+				throw new Exception("ERROR major ID must be greater than 0");
 			}
 			_context.Entry(major).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 			var rowsAffected = _context.SaveChanges();

@@ -6,7 +6,8 @@ using System.Text;
 namespace EntityFrameworksTut.Models {
 	public class StudentsController {
 
-		// 1	readonly allows for it to be written to within constructors only
+		// 1	private so that no other class can use it
+		//		readonly allows for it to be written to within constructors only
 		//		this also take cares of the open reader and close reader r 
 		private readonly eddbContext _context;
 
@@ -40,7 +41,7 @@ namespace EntityFrameworksTut.Models {
 				throw new Exception("ERROR: student cannot be null!");
 			}
 			if (student.Id <= 0) {
-				throw new Exception("ERROR: student.Id must be 0!");
+				throw new Exception("ERROR: student.Id must be greater than 0!");
 			}
 			_context.Entry(student).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 			var rowAffected = _context.SaveChanges();
