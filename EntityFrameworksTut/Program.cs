@@ -11,14 +11,14 @@ using EntityFrameworksTut.Models;
 
 namespace EntityFrameworksTut {
 	class Program {
-		static void Main(string[] args) {
+		static async void Main(string[] args) {
 
 
 			var sctrl = new StudentsController();
 
 
 			#region GetAll
-			var students = sctrl.GetAll();
+			var students = await sctrl.GetAll();
 			foreach (var s in students) {
 				Console.WriteLine("{0,-12}{1,-12}",s.Lastname,s.Firstname );
 			}
@@ -72,16 +72,16 @@ namespace EntityFrameworksTut {
 			#endregion
 
 			#region GetBySat
-			var sSat = sctrl.GetBySatRange(1000,1200);
-			foreach (var s in sSat) {
-				Console.WriteLine("{0,6}{1,-12}{2,-12}", s.Sat, $" {s.Lastname}", s.Firstname);
-			}
+			//var sSat = sctrl.GetBySatRange(1000,1200);
+			//foreach (var s in sSat) {
+			//	Console.WriteLine("{0,6}{1,-12}{2,-12}", s.Sat, $" {s.Lastname}", s.Firstname);
+			//}
 
-			// Query Method
-			var sSatQ = sctrl.GetBySatRangeQ(1000, 1200);
-			foreach (var s in sSatQ) {
-				Console.WriteLine("{0,6}{1,-12}{2,-12}", s.Sat, $" {s.Lastname}", s.Firstname);
-			}
+			//// Query Method
+			//var sSatQ = sctrl.GetBySatRangeQ(1000, 1200);
+			//foreach (var s in sSatQ) {
+			//	Console.WriteLine("{0,6}{1,-12}{2,-12}", s.Sat, $" {s.Lastname}", s.Firstname);
+			//}
 			#endregion
 
 

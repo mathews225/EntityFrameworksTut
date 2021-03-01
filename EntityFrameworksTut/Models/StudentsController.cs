@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EntityFrameworksTut.Models {
 	public class StudentsController {
@@ -13,8 +15,10 @@ namespace EntityFrameworksTut.Models {
 
 
 		// 3 Methods
-		public IEnumerable<Student> GetAll() {
-			return _context.Students.ToList();
+
+		// wrap IEnumerable to make the method async
+		public async Task<IEnumerable<Student>> GetAll() {
+			return await _context.Students.ToListAsync();
 		}
 
 		public Student GetByPK(int id) {
