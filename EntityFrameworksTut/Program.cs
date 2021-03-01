@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using EntityFrameworksTut.Models;
 
 /* tools > Nuget Package Manager Console
@@ -11,7 +12,7 @@ using EntityFrameworksTut.Models;
 
 namespace EntityFrameworksTut {
 	class Program {
-		static async void Main(string[] args) {
+		static async Task Main(string[] args) {
 
 
 			var sctrl = new StudentsController();
@@ -22,11 +23,12 @@ namespace EntityFrameworksTut {
 			foreach (var s in students) {
 				Console.WriteLine("{0,-12}{1,-12}",s.Lastname,s.Firstname );
 			}
+			Console.WriteLine("\n");
 			#endregion
 
 			#region GetByPK
 			var id = 1;
-			var student = sctrl.GetByPK(id);
+			var student = await sctrl.GetByPK(id);
 			if (student == null) {
 				Console.WriteLine($"Student w/ Id {id} Not Found");
 			} else {
@@ -46,39 +48,39 @@ namespace EntityFrameworksTut {
 			//	MajorId = 1
 			//};
 
-			//var sGregNew = sctrl.Create(sGreg);
+			//var sGregNew = await sctrl.Create(sGreg);
 			//Console.WriteLine($"{sGregNew.Id},  {sGregNew.Firstname},  {sGregNew.Lastname}");
 
 			//Console.WriteLine("\n");
 			#endregion
 
 			#region Update
-			var sGN = sctrl.GetByPK(66);
+			//var sGN = await sctrl.GetByPK(66);
 
-			// Set Firstname to "Gregory"
-			sGN.Firstname = "Gregory";
-			sctrl.Update(sGN);
+			//// Set Firstname to "Gregory"
+			//sGN.Firstname = "Gregory";
+			//await sctrl.Update(sGN);
 
-			Console.WriteLine($"{sGN.Id},  {sGN.Firstname},  {sGN.Lastname}");
+			//Console.WriteLine($"{sGN.Id},  {sGN.Firstname},  {sGN.Lastname}");
 
-			Console.WriteLine("\n");
+			//Console.WriteLine("\n");
 			#endregion
 
 			#region Delete
-			var sGNd = sctrl.Delete(67);
+			//var sGNd = await sctrl.Delete(67);
 
-			Console.WriteLine("\n");
+			//Console.WriteLine("\n");
 
 			#endregion
 
 			#region GetBySat
-			//var sSat = sctrl.GetBySatRange(1000,1200);
+			//var sSat = await sctrl.GetBySatRange(1000,1200);
 			//foreach (var s in sSat) {
 			//	Console.WriteLine("{0,6}{1,-12}{2,-12}", s.Sat, $" {s.Lastname}", s.Firstname);
 			//}
 
 			//// Query Method
-			//var sSatQ = sctrl.GetBySatRangeQ(1000, 1200);
+			//var sSatQ = await sctrl.GetBySatRangeQ(1000, 1200);
 			//foreach (var s in sSatQ) {
 			//	Console.WriteLine("{0,6}{1,-12}{2,-12}", s.Sat, $" {s.Lastname}", s.Firstname);
 			//}

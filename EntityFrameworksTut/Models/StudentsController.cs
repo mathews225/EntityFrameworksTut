@@ -21,26 +21,27 @@ namespace EntityFrameworksTut.Models {
 			return await _context.Students.ToListAsync();
 		}
 
-		public Student GetByPK(int id) {
-			return _context.Students.Find(id);
+		public async Task<Student> GetByPK(int id) {
+			return await _context.Students.FindAsync(id);
 		}
 
-		public Student Create(Student student) {
+		public async Task<Student> Create(Student student) {
 			if (student==null) {
 				throw new Exception("ERROR: student cannot be null!");
 			}
 			if (student.Id != 0) {
 				throw new Exception("ERROR: student.Id must be 0!");
 			}
-			_context.Students.Add(student);
-			var rowAffected = _context.SaveChanges();
+			_context.Students.Add(student); // now await or AddAsync b/c sudent is added to cache and not the DB
+			var rowAffected = await _context.SaveChangesAsync();
 			if (rowAffected != 1) {
 				throw new Exception("ERROR: student not created");
 			}
 			return student;
 		}
-
-		public void Update(Student student) {
+		
+		// void gets changed to Task with async
+		public async Task Update(Student student) {
 			if (student == null) {
 				throw new Exception("ERROR: student cannot be null!");
 			}
@@ -48,20 +49,20 @@ namespace EntityFrameworksTut.Models {
 				throw new Exception("ERROR: student.Id must be greater than 0!");
 			}
 			_context.Entry(student).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-			var rowAffected = _context.SaveChanges();
+			var rowAffected = await _context.SaveChangesAsync();
 			if (rowAffected != 1) {
 				throw new Exception("ERROR: change failed!");
 			}
 			return;
 		}
 
-		public Student Delete(int id) {
+		public async Task<Student> Delete(int id) {
 			var student =_context.Students.Find(id);
 			if (student==null) {
 				return null;
 			}
 			_context.Students.Remove(student);
-			var rowsAffected = _context.SaveChanges();
+			var rowsAffected = await _context.SaveChangesAsync();
 			if (rowsAffected != 1) {
 				throw new Exception("ERROR: Remove Failed");
 			}
@@ -73,15 +74,15 @@ namespace EntityFrameworksTut.Models {
 		/* Read all the students with SAT values between 1000 and 1200 inclusive
 		 * order the results by SAT score descending */
 
-		public IEnumerable<Student> GetBySatRange(int lowSat, int highSat) {
-			return _context.Students.Where(s => s.Sat >= lowSat && s.Sat <= highSat).OrderByDescending(s => s.Sat).ToList();
+		public async Task<IEnumerable<Student>> GetBySatRange(int lowSat, int highSat) {
+			return await _context.Students.Where(s => s.Sat >= lowSat && s.Sat <= highSat).OrderByDescending(s => s.Sat).ToListAsync();
 		}
 
-		public IEnumerable<Student> GetBySatRangeQ(int lowSat, int highSat) {
-			return (from s in _context.Students
+		public async Task<IEnumerable<Student>> GetBySatRangeQ(int lowSat, int highSat) {
+			return await (from s in _context.Students
 							where s.Sat >= lowSat && s.Sat <= lowSat
 							orderby s.Sat descending
-							select s).ToList();
+							select s).ToListAsync();
 		}
 
 
